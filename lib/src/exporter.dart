@@ -58,8 +58,13 @@ class Exporter {
       decodedImage.frameDuration = frame.durationInMillis;
       animation.addFrame(decodedImage);
     }
-
-    return animation.encode(image.decodePng(animation.finish()!)!);
+    final finishedImage = animation.finish();
+    if (finishedImage != null) {
+      return animation.encode(image.decodePng(finishedImage)!);
+    } else {
+      print('Error: Finished image is null.');
+      return null;
+    }
   }
 }
 
